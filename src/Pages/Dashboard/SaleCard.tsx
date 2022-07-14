@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { BiBed } from 'react-icons/bi';
 import { TbBath, TbSquaresFilled } from 'react-icons/tb';
+import { useNavigate } from 'react-router-dom';
 import { Property } from '../../modals/Property';
 
 interface Props {
@@ -8,10 +9,12 @@ interface Props {
 }
 
 const SaleCard: FC<Props> = ({ sale }) => {
-    const { _id, propertyImage, price, propertyName, location, bedrooms, bathrooms, propertySize} = sale;
+    const navigate = useNavigate();
+    const { _id, propertyImage, price, propertyName, location, bedrooms, bathrooms, propertySize } = sale;
     return (
         <div
-            className='rounded-lg bg-white border border-primary relative'>
+            onClick={() => navigate(`/dashboard/my-sales/${_id}`)}
+            className='rounded-lg bg-white border border-primary relative hover:scale-105 transition-transform duration-300 cursor-pointer'>
             <div>
                 <img className='rounded-t-lg w-full h-64' src={propertyImage} alt="" />
             </div>

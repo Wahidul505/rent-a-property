@@ -10,12 +10,12 @@ interface Props {
 }
 
 const RentCard: FC<Props> = ({ rent }) => {
-    const { _id, propertyImage, price, propertyName, location, bedrooms, bathrooms, propertySize, status, sellerName, sellerPhone, sellerEmail } = rent;
+    const { _id, propertyImage, price, propertyName, location, bedrooms, bathrooms, propertySize, status, renterName: sellerName, renterPhone: sellerPhone, renterEmail: sellerEmail } = rent;
     return (
         <div
             className='rounded-lg bg-white border border-primary relative'>
             <div>
-                <span className={`text-white text-lg uppercase p-2 rounded-3xl absolute top-1 right-1 z-20 ${status === 'pending' && 'bg-primary'} ${status === 'declined' && 'bg-error'} ${status === 'confirmed' && 'bg-success'}`}>{status}</span>
+                <span className={`text-white text-lg uppercase p-2 rounded-3xl absolute top-1 right-1 z-20 ${status === 'pending' && 'bg-primary'} ${status === 'declined' && 'bg-error'} ${status === 'accepted' && 'bg-success'}`}>{status}</span>
                 <img className='rounded-t-lg w-full h-64' src={propertyImage} alt="" />
             </div>
             <div className='mt-3 p-3'>

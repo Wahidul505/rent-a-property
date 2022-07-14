@@ -41,7 +41,7 @@ const BookingModal: FC<Props> = ({ bookingProperty, setBookingProperty, refetch 
                 location: bookingProperty.location,
                 status: 'pending'
             };
-            fetch('http://localhost:5000/booking', {
+            fetch('http://localhost:5000/applications', {
                 headers: {
                     'content-type': 'application/json',
                     'authorization': `Bearer ${user.token}`

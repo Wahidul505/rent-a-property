@@ -13,6 +13,7 @@ import PropertyDetails from './Pages/Rent/PropertyDetails';
 import NotFound from './Components/NotFound';
 import MySales from './Pages/Dashboard/MySales';
 import MyRents from './Pages/Dashboard/MyRents';
+import SaleDetails from './Pages/Dashboard/SaleDetails';
 
 const App: FC = () => {
   return (
@@ -25,6 +26,7 @@ const App: FC = () => {
           <Route path='/sale' element={<Sale />} />
           <Route path='/dashboard' element={<Dashboard />}>
             <Route path='my-sales' element={<MySales />} />
+            <Route path='my-sales/:id' element={<SaleDetails />} />
             <Route path='my-rents' element={<MyRents />} />
           </Route>
           <Route path='/login' element={<Login />} />
