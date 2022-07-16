@@ -14,6 +14,7 @@ import NotFound from './Components/NotFound';
 import MySales from './Pages/Dashboard/MySales';
 import MyRents from './Pages/Dashboard/MyRents';
 import SaleDetails from './Pages/Dashboard/SaleDetails';
+import RequireAuth from './Components/RequireAuth';
 
 const App: FC = () => {
   return (
@@ -25,9 +26,15 @@ const App: FC = () => {
           <Route path='/property/:id' element={<PropertyDetails />} />
           <Route path='/sale' element={<Sale />} />
           <Route path='/dashboard' element={<Dashboard />}>
-            <Route path='my-sales' element={<MySales />} />
-            <Route path='my-sales/:id' element={<SaleDetails />} />
-            <Route path='my-rents' element={<MyRents />} />
+            <Route index element={<RequireAuth>
+              <MyRents />
+            </RequireAuth>} />
+            <Route path='my-sales' element={<RequireAuth>
+              <MySales />
+            </RequireAuth>} />
+            <Route path='my-sales/:id' element={<RequireAuth>
+              <SaleDetails />
+            </RequireAuth>} />
           </Route>
           <Route path='/login' element={<Login />} />
           <Route path='/sign-up' element={<SignUp />} />

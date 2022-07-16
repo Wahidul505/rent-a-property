@@ -5,6 +5,7 @@ import { removeUser } from '../features/userSlice';
 
 const Navbar: FC = () => {
     const { user } = useAppSelector(state => state.userReducer);
+    const email = user?.email;
     const dispatch = useAppDispatch();
 
 
@@ -15,7 +16,9 @@ const Navbar: FC = () => {
     const menuItems: JSX.Element = <div className='text-lg md:flex md:gap-6 font-semibold'>
         <li><NavLink to='/'>Rent</NavLink></li>
         <li><NavLink to='/sale'>Sale</NavLink></li>
-        <li><NavLink to='/dashboard'>Dashboard</NavLink></li>
+        {
+            email && <li><NavLink to='/dashboard'>Dashboard</NavLink></li>
+        }
     </div>
     const authItems: JSX.Element = <div className='flex flex-col md:flex-row gap-2 md:gap-4 mt-3'>
         {

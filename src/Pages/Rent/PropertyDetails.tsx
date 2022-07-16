@@ -19,7 +19,7 @@ const PropertyDetails = () => {
     const navigate = useNavigate();
     const [property, setProperty] = useState<Property>();
     const [bookingProperty, setBookingProperty] = useState<Property | null>();
-    // const { propertyName, propertyImage, price, propertySize, bedrooms, bathrooms, category, location } = property;
+    
     useEffect(() => {
         fetch(`http://localhost:5000/property/${id}`)
             .then(res => res.json())
@@ -43,7 +43,8 @@ const PropertyDetails = () => {
                     Back to map
                 </span>
                 <div className='mt-8'>
-                    <h1 className='text-3xl font-bold'>{property?.propertyName ? property.propertyName : ''}</h1>
+                    <h1 className='text-3xl font-bold mb-2'>{property?.propertyName ? property.propertyName : ''}</h1>
+                    <h1 className='text-xl font-bold text-gray-600'>Category: <span className='text-primary'>{property?.category ? property.category : ''}</span></h1>
                     <p className='text-gray-500 mt-3 text-lg'>{property?.location ? property.location : ''}</p>
                 </div>
                 <div className='mt-8'>
