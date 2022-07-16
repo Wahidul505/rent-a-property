@@ -15,7 +15,7 @@ const RentCard: FC<Props> = ({ rent }) => {
         <div
             className='rounded-lg bg-white border border-primary relative'>
             <div>
-                <span className={`text-white text-lg uppercase p-2 rounded-3xl absolute top-1 right-1 z-20 ${status === 'pending' && 'bg-primary'} ${status === 'declined' && 'bg-error'} ${status === 'accepted' && 'bg-success'}`}>{status}</span>
+                <span className={`text-white font-semibold text-lg uppercase p-2 rounded-3xl absolute top-1 right-1 z-20 ${status === 'pending' && 'bg-primary'} ${status === 'declined' && 'bg-error'} ${status === 'accepted' && 'bg-success'}`}>{status}</span>
                 <img className='rounded-t-lg w-full h-64' src={propertyImage} alt="" />
             </div>
             <div className='mt-3 p-3'>

@@ -81,7 +81,7 @@ const PropertyDetails = () => {
                             <p><span className='text-primary font-semibold text-2xl'>${property?.price ? property.price : ''}</span><span className='text-gray-500'>/month</span></p>
                             {
                                 bookingStatus.success ?
-                                    <p className='text-lg text-secondary mt-2 uppercase'>{bookingStatus.status}</p>
+                                    <p className='text-lg text-white mt-2 uppercase bg-secondary rounded-3xl py-1 px-2 font-semibold w-fit'>{bookingStatus.status}</p>
                                     :
                                     <label
                                         onClick={() => setBookingProperty(property)}

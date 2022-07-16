@@ -23,17 +23,19 @@ const RentApplications: FC<Props> = ({ id }) => {
         if (currentId && currentStatus && user) {
             fetch(`http://localhost:5000/applications?id=${currentId}&status=${currentStatus}&email=${user?.email}`, {
                 method: 'PATCH',
+                headers: {
+                    'authorization': `Bearer ${user.token}`
+                }
             })
                 .then(res => {
                     if (res.status === 401 || res.status === 403) {
-                        // dispatch(removeUser());
+                        dispatch(removeUser());
                     }
                     else {
                         return res.json();
                     }
                 })
                 .then(data => {
-                    console.log(data);
                     if (data.success) {
                         if (data.status === 'accepted') {
                             toast.success(data.status, { id: 'status-accepted' });
@@ -84,7 +86,7 @@ const RentApplications: FC<Props> = ({ id }) => {
                                                 className='btn btn-sm btn-error'>Decline</button>
                                         </div>
                                         :
-                                        <p className={`text-lg mt-4 text-white rounded-3xl p-1 w-fit ${status === 'accepted' && 'bg-success'} ${status === 'declined' && 'bg-error'}`}>{status}</p>
+                                        <p className={`text-lg mt-4 text-white rounded-3xl py-1 px-2 w-fit font-semibold ${status === 'accepted' && 'bg-success'} ${status === 'declined' && 'bg-error'}`}>{status}</p>
                                 }
                             </div>
                         </div>

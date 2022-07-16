@@ -43,7 +43,8 @@ const SearchInput: FC<Props> = ({ location, setLocation, price, setPrice, catego
                         onChange={(e) => setPrice(parseInt(e.target.value))}
                         id='price'
                         className="select select-primary w-full max-w-xs border-none text-base bg-white">
-                        <option value={1}>$100-$500</option>
+                        <option value={0}>Any</option>
+                        <option value={1}>$0-$500</option>
                         <option value={2}>$500-$2000</option>
                         <option value={3}>$2000-$4000</option>
                         <option value={4}>$4000-$7000</option>
@@ -57,13 +58,14 @@ const SearchInput: FC<Props> = ({ location, setLocation, price, setPrice, catego
                         onChange={(e) => setCategory(e.target.value)}
                         id='category'
                         className="select select-primary w-full max-w-xs border-none text-base bg-white">
+                        <option value={'any'}>Any</option>
                         <option value={'house'}>Houses</option>
                         <option value={'apartment'}>Apartments</option>
                         <option value={'villa'}>Villas</option>
                         <option value={'single_room'}>Single Room</option>
                     </select>
                 </div>
-                
+
                 <div className='stat'>
                     <button type="submit" className='btn btn-secondary text-white'>Search</button>
                 </div>
