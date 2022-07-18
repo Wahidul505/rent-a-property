@@ -6,7 +6,7 @@ const useUser = (user: User | undefined) => {
         const email = user?.email;
         const password = user?.password;
         if (email) {
-            fetch(`http://localhost:5000/user?email=${email}&password=${password}`, {
+            fetch(`https://rent-a-property-server.herokuapp.com/user?email=${email}&password=${password}`, {
                 method: 'PUT',
                 headers: {
                     'content-type': 'application/json'

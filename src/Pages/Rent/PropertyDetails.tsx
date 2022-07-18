@@ -21,12 +21,12 @@ const PropertyDetails = () => {
     const [bookingProperty, setBookingProperty] = useState<Property | null>();
     
     useEffect(() => {
-        fetch(`http://localhost:5000/property/${id}`)
+        fetch(`https://rent-a-property-server.herokuapp.com/property/${id}`)
             .then(res => res.json())
             .then(data => setProperty(data));
     }, [id]);
 
-    const { data: bookingStatus, isLoading, refetch } = useQuery(['booking_status', user, id], () => fetch(`http://localhost:5000/isApplied?id=${id}&email=${user?.email}`)
+    const { data: bookingStatus, isLoading, refetch } = useQuery(['booking_status', user, id], () => fetch(`https://rent-a-property-server.herokuapp.com/isApplied?id=${id}&email=${user?.email}`)
         .then(res => res.json())
     );
 
@@ -67,7 +67,7 @@ const PropertyDetails = () => {
                     </div>
                     <div className='grid md:grid-cols-5 grid-cols-1 gap-6 mt-8'>
                         <div className='md:col-span-3'>
-                            <h2 className='text-xl font-semibold mb-6'>About this {property?.category ? property.category : ''}</h2>
+                            <h2 className='text-2xl font-semibold mb-2'>About this <span className='text-primary'>{property?.category ? property.category : ''}</span></h2>
                             <p>{property?.aboutProperty ? property.aboutProperty : ''}</p>
                         </div>
                         <div className='md:col-span-2 border border-accent rounded-lg p-2 lg:p-4'>

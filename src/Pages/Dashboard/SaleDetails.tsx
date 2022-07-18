@@ -12,10 +12,12 @@ const SaleDetails = () => {
     const [property, setProperty] = useState<Property>();
     const navigate = useNavigate();
     useEffect(() => {
-        fetch(`http://localhost:5000/property/${id}`)
+        fetch(`https://rent-a-property-server.herokuapp.com/property/${id}`)
             .then(res => res.json())
-            .then(data => {setProperty(data)
-            console.log(data)});
+            .then(data => {
+                setProperty(data)
+                console.log(data)
+            });
     }, [id]);
     return (
         <div>
@@ -26,7 +28,10 @@ const SaleDetails = () => {
                     Back to My Sales
                 </span>
                 <div className='mt-8'>
-                    <h1 className='text-3xl font-bold'>{property?.propertyName ? property.propertyName : ''}</h1>
+                    <h1 className='text-3xl font-bold'>
+                        {property?.propertyName ? property.propertyName : ''}
+                        <span>{property?.category ? property.category : ''}</span>
+                    </h1>
                     <p className='text-gray-500 mt-3 text-lg'>{property?.location ? property.location : ''}</p>
                 </div>
                 <div className='mt-8'>
@@ -66,7 +71,7 @@ const SaleDetails = () => {
                     </div>
                 </div>
             </div>
-            <RentApplications id={id}/>
+            <RentApplications id={id} />
         </div>
     );
 };

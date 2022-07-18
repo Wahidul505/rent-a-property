@@ -17,8 +17,9 @@ const PropertyCard: FC<Props> = ({ property }) => {
         <div
             onClick={() => navigate(`/property/${_id}`)}
             className='rounded-lg bg-white hover:scale-105 transition-transform duration-300 cursor-pointer'>
-            <div>
+            <div className='relative'>
                 <img className='rounded-t-lg w-full h-64' src={propertyImage} alt="" />
+                <p className='bg-primary text-white absolute bottom-0 left-0 px-2 py-1 text-lg font-semibold rounded-tr-2xl'>{category}</p>
             </div>
             <div className='mt-3 p-3'>
                 <p><span className='text-primary font-semibold text-xl'>${price}</span><span className='text-gray-500'>/month</span></p>

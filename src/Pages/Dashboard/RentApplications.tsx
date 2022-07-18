@@ -17,11 +17,22 @@ const RentApplications: FC<Props> = ({ id }) => {
     const [currentId, setCurrentId] = useState<string>('');
     const { user } = useAppSelector(state => state.userReducer);
     const dispatch = useAppDispatch();
-    const { data: applications, isLoading, refetch } = useQuery(['rent-applications', id], () => fetch(`http://localhost:5000/rent-applications/${id}`).then(res => res.json()));
+    const { data: applications, isLoading, refetch } = useQuery(['rent-applications', id], () => fetch(`https://rent-a-property-server.herokuapp.com/applications/${id}`, {
+        headers: {
+            'authorization': `Bearer ${user?.token}`
+        }
+    }).then(res => {
+        if (res.status === 401 || res.status === 403) {
+            dispatch(removeUser());
+        }
+        else {
+            return res.json();
+        }
+    }));
 
     useEffect(() => {
         if (currentId && currentStatus && user) {
-            fetch(`http://localhost:5000/applications?id=${currentId}&status=${currentStatus}&email=${user?.email}`, {
+            fetch(`https://rent-a-property-server.herokuapp.com/applications?id=${currentId}&status=${currentStatus}&email=${user?.email}`, {
                 method: 'PATCH',
                 headers: {
                     'authorization': `Bearer ${user.token}`

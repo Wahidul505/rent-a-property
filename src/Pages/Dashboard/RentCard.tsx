@@ -10,7 +10,7 @@ interface Props {
 }
 
 const RentCard: FC<Props> = ({ rent }) => {
-    const { _id, propertyImage, price, propertyName, location, bedrooms, bathrooms, propertySize, status, renterName: sellerName, renterPhone: sellerPhone, renterEmail: sellerEmail } = rent;
+    const { propertyImage, price, propertyName, location, bedrooms, bathrooms, propertySize, status, sellerName, sellerPhone, sellerEmail } = rent;
     return (
         <div
             className='rounded-lg bg-white border border-primary relative'>
@@ -27,7 +27,7 @@ const RentCard: FC<Props> = ({ rent }) => {
                     <span className='flex gap-2 items-center text-gray-600 font-semibold'><TbBath className='text-xl' /> {bathrooms} Baths</span>
                     <span className='flex gap-2 items-center text-gray-600 font-semibold'><TbSquaresFilled className='text-xl' />{propertySize} &#13217;</span>
                 </div>
-                <div className='bg-base-100 p-2 rounded-lg mt-8'>
+                <div className='bg-base-100 p-2 rounded-lg mt-8 overflow-x-auto'>
                     <h3 className='text-accent text-lg font-semibold'>Property Owner</h3>
                     <hr className='mb-3' />
                     <p><span className='flex gap-2 items-center text-gray-600 font-semibold'><MdOutlinePersonOutline className='text-xl' />: {sellerName}</span></p>

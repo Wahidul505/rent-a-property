@@ -1,14 +1,27 @@
 import React, { FC } from 'react';
 import { useQuery } from 'react-query';
-import { useAppSelector } from '../../app/hooks';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import Loading from '../../Components/Loading';
+import { removeUser } from '../../features/userSlice';
 import { Property } from '../../modals/Property';
 import SaleCard from './SaleCard';
 
 const MySales: FC = () => {
     const { user } = useAppSelector(state => state.userReducer);
-    const { data: mySales, isLoading } = useQuery(['my-sales', user], () => fetch(`http://localhost:5000/my-sales/${user?.email}`)
-        .then(res => res.json())
+    const dispatch = useAppDispatch();
+    const { data: mySales, isLoading } = useQuery(['my-sales', user], () => fetch(`https://rent-a-property-server.herokuapp.com/my-sales/${user?.email}`, {
+        headers: {
+            'authorization': `Bearer ${user?.token}`
+        }
+    })
+        .then(res => {
+            if (res.status === 401 || res.status === 403) {
+                dispatch(removeUser());
+            }
+            else {
+                return res.json();
+            }
+        })
     );
 
     if (isLoading) {

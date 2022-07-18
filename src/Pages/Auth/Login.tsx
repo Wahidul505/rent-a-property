@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import toast from 'react-hot-toast';
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useAppDispatch } from '../../app/hooks';
 import { storeUser } from '../../features/userSlice';
 import { User } from '../../modals/Auth';
@@ -10,14 +10,15 @@ const Login = () => {
     const [password, setPassword] = useState<string>('');
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
-
+    const location: any = useLocation();
+    const from = location.state?.from?.pathname || '/';
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
         const newUser: User = {
             email,
             password
         };
-        const res = await fetch('http://localhost:5000/login', {
+        const res = await fetch('https://rent-a-property-server.herokuapp.com/login', {
             headers: {
                 'content-type': 'application/json'
             },
@@ -28,7 +29,7 @@ const Login = () => {
         if (data.status) {
             localStorage.setItem('TokenInfo', JSON.stringify({ token: data.token, name: data.user.name, email: data.user.email }));
             await dispatch(storeUser({ name: data.user.name, email: data.user.email, token: data.token }));
-            navigate('/', { replace: true })
+            navigate(from, { replace: true })
         }
         else {
             toast.error(data.error, { id: 'login-failed' });

@@ -41,7 +41,7 @@ const BookingModal: FC<Props> = ({ bookingProperty, setBookingProperty, refetch 
                 location: bookingProperty.location,
                 status: 'pending'
             };
-            fetch('http://localhost:5000/applications', {
+            fetch('https://rent-a-property-server.herokuapp.com/applications', {
                 headers: {
                     'content-type': 'application/json',
                     'authorization': `Bearer ${user.token}`
@@ -50,7 +50,6 @@ const BookingModal: FC<Props> = ({ bookingProperty, setBookingProperty, refetch 
                 body: JSON.stringify(bookingInfo)
             }).then(res => {
                 if (res.status === 401 || res.status === 403) {
-                    navigate('/login');
                     dispatch(removeUser());
                 }
                 else {

@@ -23,8 +23,12 @@ const App: FC = () => {
       <div className='pt-36 lg:px-16 md:px-8 px-4'>
         <Routes>
           <Route path='/' element={<Rent />} />
-          <Route path='/property/:id' element={<PropertyDetails />} />
-          <Route path='/sale' element={<Sale />} />
+          <Route path='/property/:id' element={<RequireAuth>
+            <PropertyDetails />
+          </RequireAuth>} />
+          <Route path='/sale' element={<RequireAuth>
+            <Sale />
+          </RequireAuth>} />
           <Route path='/dashboard' element={<Dashboard />}>
             <Route index element={<RequireAuth>
               <MyRents />
