@@ -32,7 +32,10 @@ const MySales: FC = () => {
     return (
         <div className='flex flex-col gap-8 px-3'>
             {
-                mySales && mySales.map((sale: Property) => <SaleCard key={sale._id} sale={sale} />)
+                mySales.length === 0 ?
+                    <h1 className='text-3xl font-semibold text-center'>You have No Property in Sale</h1>
+                    :
+                    mySales && mySales.map((sale: Property) => <SaleCard key={sale._id} sale={sale} />)
             }
         </div>
     );

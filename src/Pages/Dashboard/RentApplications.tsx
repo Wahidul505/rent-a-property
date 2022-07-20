@@ -81,7 +81,9 @@ const RentApplications: FC<Props> = ({ id }) => {
 
                         const { _id, renterName, renterPhone, renterEmail, status } = application;
 
-                        return <div className='shadow-lg bg-accent text-white p-2 rounded-lg mb-8'>
+                        return <div
+                            key={_id}
+                            className='shadow-lg bg-accent text-white p-2 rounded-lg mb-8'>
                             <p><span className='flex gap-2 items-center font-semibold'><MdOutlinePersonOutline className='text-xl' />: {renterName || ''}</span></p>
                             <p><span className='flex gap-2 items-center font-semibold'><AiOutlinePhone className='text-xl' />: {renterPhone || ''}</span></p>
                             <p><span className='flex gap-2 items-center font-semibold'><MdAlternateEmail className='text-xl' />: {renterEmail || ''}</span></p>

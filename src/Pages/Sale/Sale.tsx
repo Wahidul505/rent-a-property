@@ -181,7 +181,7 @@ const Sale: FC = () => {
               onChange={e => setBedrooms(parseInt(e.target.value))}
               id="bedrooms"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
-              <option selected value={6}>6</option>
+              <option value={6}>6</option>
               <option value={5}>5</option>
               <option value={4}>4</option>
               <option value={3}>3</option>
@@ -195,7 +195,7 @@ const Sale: FC = () => {
               onChange={e => setBathrooms(parseInt(e.target.value))}
               id="bathrooms"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
-              <option selected value={6}>6</option>
+              <option value={6}>6</option>
               <option value={5}>5</option>
               <option value={4}>4</option>
               <option value={3}>3</option>
@@ -210,7 +210,7 @@ const Sale: FC = () => {
             onChange={e => setCategory(e.target.value)}
             id="property_category"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
-            <option selected value="house">House</option>
+            <option value="house">House</option>
             <option value="apartment">Apartment</option>
             <option value="villa">Villa</option>
             <option value="single_room">Single Room</option>

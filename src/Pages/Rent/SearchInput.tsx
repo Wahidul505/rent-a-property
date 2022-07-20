@@ -27,7 +27,7 @@ const SearchInput: FC<Props> = ({ location, setLocation, price, setPrice, catego
                                     onBlur={() => setShowInput(false)}
                                     value={location}
                                     type="text"
-                                    className='input border border-black text-base' />
+                                    className='input border border-secondary text-base' />
                             </div>
                             :
                             <div className='flex flex-col font-semibold cursor-pointer' onClick={() => setShowInput(true)}>
@@ -42,7 +42,7 @@ const SearchInput: FC<Props> = ({ location, setLocation, price, setPrice, catego
                     <select
                         onChange={(e) => setPrice(parseInt(e.target.value))}
                         id='price'
-                        className="select select-primary w-full max-w-xs border-none text-base bg-white">
+                        className="select select-secondary w-full max-w-xs border-none text-base bg-white">
                         <option value={0}>Any</option>
                         <option value={1}>$0-$500</option>
                         <option value={2}>$500-$2000</option>
@@ -57,7 +57,7 @@ const SearchInput: FC<Props> = ({ location, setLocation, price, setPrice, catego
                     <select
                         onChange={(e) => setCategory(e.target.value)}
                         id='category'
-                        className="select select-primary w-full max-w-xs border-none text-base bg-white">
+                        className="select select-secondary w-full max-w-xs border-none text-base bg-white">
                         <option value={'any'}>Any</option>
                         <option value={'house'}>Houses</option>
                         <option value={'apartment'}>Apartments</option>
@@ -67,7 +67,7 @@ const SearchInput: FC<Props> = ({ location, setLocation, price, setPrice, catego
                 </div>
 
                 <div className='stat'>
-                    <button type="submit" className='btn btn-secondary text-white'>Search</button>
+                    <button type="submit" className='btn btn-primary text-white'>Search</button>
                 </div>
 
             </div>

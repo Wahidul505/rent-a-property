@@ -30,7 +30,10 @@ const MyRents: FC = () => {
     return (
         <div className='flex flex-col gap-8 px-3'>
             {
-                myRents && myRents.map((rent: Booking) => <RentCard key={rent._id} rent={rent} />)
+                myRents.length === 0 ?
+                    <h1 className='text-3xl font-semibold text-center'>You have No Rent Application</h1>
+                    :
+                    myRents && myRents.map((rent: Booking) => <RentCard key={rent._id} rent={rent} />)
             }
         </div>
     );

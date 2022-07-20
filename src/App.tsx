@@ -15,6 +15,7 @@ import MySales from './Pages/Dashboard/MySales';
 import MyRents from './Pages/Dashboard/MyRents';
 import SaleDetails from './Pages/Dashboard/SaleDetails';
 import RequireAuth from './Components/RequireAuth';
+import ManageProperty from './Pages/Dashboard/ManageProperty';
 
 const App: FC = () => {
   return (
@@ -38,6 +39,9 @@ const App: FC = () => {
             </RequireAuth>} />
             <Route path='my-sales/:id' element={<RequireAuth>
               <SaleDetails />
+            </RequireAuth>} />
+            <Route path='manage-property' element={<RequireAuth>
+              <ManageProperty />
             </RequireAuth>} />
           </Route>
           <Route path='/login' element={<Login />} />

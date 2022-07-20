@@ -16,7 +16,6 @@ const SaleDetails = () => {
             .then(res => res.json())
             .then(data => {
                 setProperty(data)
-                console.log(data)
             });
     }, [id]);
     return (

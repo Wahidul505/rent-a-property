@@ -89,7 +89,7 @@ const Rent: FC = () => {
     }
 
     return (
-        <div>
+        <div className='min-h-screen'>
             <h1 className='text-3xl font-bold mb-6'>Search Your Suitable Properties</h1>
             <div>
                 <SearchInput
