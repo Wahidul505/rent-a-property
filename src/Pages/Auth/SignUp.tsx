@@ -40,7 +40,7 @@ const SignUp = () => {
                 email,
                 password
             };
-            const res = await fetch('https://rent-a-property-server.herokuapp.com/sign-up', {
+            const res = await fetch('https://rent-property.onrender.com/sign-up', {
                 headers: {
                     'content-type': 'application/json'
                 },

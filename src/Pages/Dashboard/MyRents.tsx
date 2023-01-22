@@ -9,7 +9,7 @@ import RentCard from './RentCard';
 const MyRents: FC = () => {
     const { user } = useAppSelector(state => state.userReducer);
     const dispatch = useAppDispatch();
-    const { data: myRents, isLoading } = useQuery('my-rents', () => fetch(`https://rent-a-property-server.herokuapp.com/my-rents/${user?.email}`, {
+    const { data: myRents, isLoading } = useQuery('my-rents', () => fetch(`https://rent-property.onrender.com/my-rents/${user?.email}`, {
         headers: {
             'authorization': `Bearer ${user?.token}`
         }

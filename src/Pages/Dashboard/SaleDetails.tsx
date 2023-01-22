@@ -12,7 +12,7 @@ const SaleDetails = () => {
     const [property, setProperty] = useState<Property>();
     const navigate = useNavigate();
     useEffect(() => {
-        fetch(`https://rent-a-property-server.herokuapp.com/property/${id}`)
+        fetch(`https://rent-property.onrender.com/property/${id}`)
             .then(res => res.json())
             .then(data => {
                 setProperty(data)

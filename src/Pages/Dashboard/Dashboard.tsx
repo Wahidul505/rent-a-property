@@ -10,7 +10,7 @@ const Dashboard: FC = () => {
   const { user } = useAppSelector(state => state.userReducer);
   const email = user?.email;
   useEffect(() => {
-    fetch(`https://rent-a-property-server.herokuapp.com/user/${email}`, {
+    fetch(`https://rent-property.onrender.com/user/${email}`, {
       headers: {
         'authorization': `Bearer ${user?.token}`
       }

@@ -41,7 +41,7 @@ const BookingModal: FC<Props> = ({ bookingProperty, setBookingProperty, refetch 
                 location: bookingProperty.location,
                 status: 'pending'
             };
-            fetch('https://rent-a-property-server.herokuapp.com/applications', {
+            fetch('https://rent-property.onrender.com/applications', {
                 headers: {
                     'content-type': 'application/json',
                     'authorization': `Bearer ${user.token}`

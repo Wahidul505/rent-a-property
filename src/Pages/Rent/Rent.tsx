@@ -14,7 +14,7 @@ const Rent: FC = () => {
 
 
     useEffect(() => {
-        fetch('https://rent-a-property-server.herokuapp.com/property')
+        fetch('https://rent-property.onrender.com/property')
             .then(res => res.json())
             .then(data => setProperties(data));
     }, []);
