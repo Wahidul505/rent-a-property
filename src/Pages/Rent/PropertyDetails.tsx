@@ -21,12 +21,12 @@ const PropertyDetails = () => {
     const [bookingProperty, setBookingProperty] = useState<Property | null>();
     
     useEffect(() => {
-        fetch(`https://rent-property.onrender.com/property/${id}`)
+        fetch(`https://rent-a-property.onrender.com/property/${id}`)
             .then(res => res.json())
             .then(data => setProperty(data));
     }, [id]);
 
-    const { data: bookingStatus, isLoading, refetch } = useQuery(['booking_status', user, id], () => fetch(`https://rent-property.onrender.com/isApplied?id=${id}&email=${user?.email}`)
+    const { data: bookingStatus, isLoading, refetch } = useQuery(['booking_status', user, id], () => fetch(`https://rent-a-property.onrender.com/isApplied?id=${id}&email=${user?.email}`)
         .then(res => res.json())
     );
 

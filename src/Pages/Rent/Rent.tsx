@@ -14,7 +14,7 @@ const Rent: FC = () => {
 
 
     useEffect(() => {
-        fetch('https://rent-property.onrender.com/property')
+        fetch('https://rent-a-property.onrender.com/property')
             .then(res => res.json())
             .then(data => setProperties(data));
     }, []);

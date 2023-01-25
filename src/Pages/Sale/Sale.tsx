@@ -58,7 +58,7 @@ const Sale: FC = () => {
             category,
             location,
           };
-          fetch('https://rent-property.onrender.com/property', {
+          fetch('https://rent-a-property.onrender.com/property', {
             headers: {
               'content-type': 'application/json',
               'authorization': `Bearer ${user.token}`

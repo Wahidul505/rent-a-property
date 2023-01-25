@@ -18,7 +18,7 @@ const Login = () => {
             email,
             password
         };
-        const res = await fetch('https://rent-property.onrender.com/login', {
+        const res = await fetch('https://rent-a-property.onrender.com/login', {
             headers: {
                 'content-type': 'application/json'
             },

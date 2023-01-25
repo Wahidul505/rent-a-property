@@ -9,7 +9,7 @@ import SaleCard from './SaleCard';
 const MySales: FC = () => {
     const { user } = useAppSelector(state => state.userReducer);
     const dispatch = useAppDispatch();
-    const { data: mySales, isLoading } = useQuery(['my-sales', user], () => fetch(`https://rent-property.onrender.com/my-sales/${user?.email}`, {
+    const { data: mySales, isLoading } = useQuery(['my-sales', user], () => fetch(`https://rent-a-property.onrender.com/my-sales/${user?.email}`, {
         headers: {
             'authorization': `Bearer ${user?.token}`
         }

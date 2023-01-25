@@ -9,14 +9,14 @@ import { Property } from '../../modals/Property';
 const ManageProperty = () => {
     const { user } = useAppSelector(state => state.userReducer);
     const dispatch = useAppDispatch();
-    const { data: properties, isLoading, refetch } = useQuery('manage-properties', () => fetch('https://rent-property.onrender.com/property').then(res => res.json()));
+    const { data: properties, isLoading, refetch } = useQuery('manage-properties', () => fetch('https://rent-a-property.onrender.com/property').then(res => res.json()));
 
     if (isLoading) {
         return <Loading />
     }
 
     const handleDeleteProperty = (id: string) => {
-        fetch(`https://rent-property.onrender.com/property/${id}`, {
+        fetch(`https://rent-a-property.onrender.com/property/${id}`, {
             headers: {
                 'authorization': `Bearer ${user?.token}`
             },
