@@ -26,7 +26,10 @@ const Dashboard: FC = () => {
   }, [user, email]);
   const menuItems = [
     <li>
-      <Link to="/dashboard">My Rent Applications</Link>
+      <Link to="/dashboard">Profile</Link>
+    </li>,
+    <li>
+      <Link to="/dashboard/my-rents">My Rent Applications</Link>
     </li>,
     <li>
       <Link to="/dashboard/my-sales">My Sales</Link>

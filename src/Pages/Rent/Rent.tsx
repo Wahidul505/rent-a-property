@@ -2,6 +2,7 @@ import React, { FC, useEffect, useState } from "react";
 import { Property } from "../../modals/Property";
 import PropertyCard from "./PropertyCard";
 import SearchInput from "./SearchInput";
+import Loading from "../../Components/Loading";
 
 const Rent: FC = () => {
   const [location, setLocation] = useState<string>("WorldWide");
@@ -156,11 +157,11 @@ const Rent: FC = () => {
     }
   };
 
+  if (!properties) return <Loading />;
+
   return (
     <div className="min-h-screen">
-      <h1 className="text-3xl font-bold mb-6">
-        Search Your Suitable Properties
-      </h1>
+      <h1 className="text-3xl font-bold mb-6">Search Your Suitable Property</h1>
       <div>
         <SearchInput
           location={location}

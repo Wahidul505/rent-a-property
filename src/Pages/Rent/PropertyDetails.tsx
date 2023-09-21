@@ -57,7 +57,9 @@ const PropertyDetails = () => {
           <h1 className="text-xl font-bold text-gray-600">
             Category:{" "}
             <span className="text-primary">
-              {property?.category ? property.category : ""}
+              {property?.category
+                ? property.category.split("_").join(" ").toUpperCase()
+                : ""}
             </span>
           </h1>
           <p className="text-gray-500 mt-3 text-lg">
@@ -106,7 +108,9 @@ const PropertyDetails = () => {
               <h2 className="text-2xl font-semibold mb-2">
                 About this{" "}
                 <span className="text-primary">
-                  {property?.category ? property.category : ""}
+                  {property?.category
+                    ? property.category.split("_").join(" ").toUpperCase()
+                    : ""}
                 </span>
               </h2>
               <p>{property?.aboutProperty ? property.aboutProperty : ""}</p>

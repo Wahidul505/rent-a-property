@@ -43,6 +43,7 @@ const Login = () => {
         })
       );
       navigate(from, { replace: true });
+      toast.success("Successfully Logged In", { id: "login-success" });
     } else {
       toast.error(data.error, { id: "login-failed" });
     }
