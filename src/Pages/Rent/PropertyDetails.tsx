@@ -113,7 +113,9 @@ const PropertyDetails = () => {
                     : ""}
                 </span>
               </h2>
-              <p>{property?.aboutProperty ? property.aboutProperty : ""}</p>
+              <p className="md:text-lg">
+                {property?.aboutProperty ? property.aboutProperty : ""}
+              </p>
             </div>
             <div className="md:col-span-2 border border-accent rounded-lg p-2 lg:p-4">
               <div className="shadow-lg bg-white p-2 rounded-lg mb-8">

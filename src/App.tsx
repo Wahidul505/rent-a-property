@@ -22,7 +22,7 @@ const App: FC = () => {
   return (
     <div className="App">
       <Navbar />
-      <div className="pt-36 lg:px-16 md:px-8 px-4">
+      <div className="pt-36 lg:px-16 md:px-8 px-4 min-h-screen">
         <Routes>
           <Route path="/" element={<Rent />} />
           <Route

@@ -58,22 +58,20 @@ const Rent: FC = () => {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (
-      (location?.toLowerCase() === "worldwide" ||
-        location?.toLowerCase() === "world wide" ||
-        location?.toLowerCase() === "any" ||
-        location?.toLowerCase() === "" ||
-        location?.toLowerCase() === " ") &&
+      (location?.trim().toLowerCase() === "worldwide" ||
+        location?.trim().toLowerCase() === "world wide" ||
+        location?.trim().toLowerCase() === "any" ||
+        location?.trim().toLowerCase() === "") &&
       price === 0 &&
       category === "any"
     ) {
       setSearchedProperties(properties);
     } else {
       if (
-        (location?.toLowerCase() === "worldwide" ||
-          location?.toLowerCase() === "world wide" ||
-          location?.toLowerCase() === "any" ||
-          location?.toLowerCase() === "" ||
-          location?.toLowerCase() === " ") &&
+        (location?.trim().toLowerCase() === "worldwide" ||
+          location?.trim().toLowerCase() === "world wide" ||
+          location?.trim().toLowerCase() === "any" ||
+          location?.trim().toLowerCase() === "") &&
         price === 0 &&
         category !== "any"
       ) {
@@ -81,11 +79,10 @@ const Rent: FC = () => {
           properties?.filter((property) => property.category === category)
         );
       } else if (
-        (location?.toLowerCase() === "worldwide" ||
-          location?.toLowerCase() === "world wide" ||
-          location?.toLowerCase() === "any" ||
-          location?.toLowerCase() === "" ||
-          location?.toLowerCase() === " ") &&
+        (location?.trim().toLowerCase() === "worldwide" ||
+          location?.trim().toLowerCase() === "world wide" ||
+          location?.trim().toLowerCase() === "any" ||
+          location?.trim().toLowerCase() === "") &&
         price !== 0 &&
         category === "any"
       ) {
@@ -96,11 +93,10 @@ const Rent: FC = () => {
           )
         );
       } else if (
-        (location?.toLowerCase() === "worldwide" ||
-          location?.toLowerCase() === "world wide" ||
-          location?.toLowerCase() === "any" ||
-          location?.toLowerCase() === "" ||
-          location?.toLowerCase() === " ") &&
+        (location?.trim().toLowerCase() === "worldwide" ||
+          location?.trim().toLowerCase() === "world wide" ||
+          location?.trim().toLowerCase() === "any" ||
+          location?.trim().toLowerCase() === "") &&
         price !== 0 &&
         category !== "any"
       ) {
@@ -115,7 +111,10 @@ const Rent: FC = () => {
       } else if (price === 0 && category === "any") {
         setSearchedProperties(
           properties?.filter((property) =>
-            property?.location?.toLowerCase()?.includes(location?.toLowerCase())
+            property?.location
+              ?.trim()
+              .toLowerCase()
+              ?.includes(location?.trim().toLowerCase())
           )
         );
       } else if (price !== 0 && category === "any") {
@@ -124,7 +123,7 @@ const Rent: FC = () => {
             (property) =>
               property?.location
                 ?.toLowerCase()
-                ?.includes(location?.toLowerCase()) &&
+                ?.includes(location?.trim().toLowerCase()) &&
               property.price > priceRange[0] &&
               property.price < priceRange[1]
           )
@@ -135,7 +134,7 @@ const Rent: FC = () => {
             (property) =>
               property?.location
                 ?.toLowerCase()
-                ?.includes(location?.toLowerCase()) &&
+                ?.includes(location?.trim().toLowerCase()) &&
               property.category === category
           )
         );
@@ -145,7 +144,7 @@ const Rent: FC = () => {
             (property) =>
               property?.location
                 ?.toLowerCase()
-                ?.includes(location?.toLowerCase()) &&
+                ?.includes(location?.trim().toLowerCase()) &&
               property.price > priceRange[0] &&
               property.price < priceRange[1] &&
               property.category === category
