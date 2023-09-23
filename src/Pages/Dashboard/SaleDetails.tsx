@@ -109,7 +109,7 @@ const SaleDetails = () => {
               <p className="text-gray-500">Rent Price</p>
               <p>
                 <span className="text-primary font-semibold text-2xl">
-                  ${property?.price ? property.price : ""}
+                  {property?.price ? property.price : ""} TK
                 </span>
                 <span className="text-gray-500">/month</span>
               </p>

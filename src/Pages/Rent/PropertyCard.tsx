@@ -36,7 +36,7 @@ const PropertyCard: FC<Props> = ({ property }) => {
       </div>
       <div className="mt-3 p-3">
         <p>
-          <span className="text-primary font-semibold text-xl">${price}</span>
+          <span className="text-primary font-semibold text-xl">{price} TK</span>
           <span className="text-gray-500">/month</span>
         </p>
         <h3 className="text-2xl font-semibold">{propertyName}</h3>

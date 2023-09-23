@@ -57,11 +57,11 @@ const SearchInput: FC<Props> = ({
             className="select select-secondary w-full max-w-xs border-none text-base bg-white"
           >
             <option value={0}>Any</option>
-            <option value={1}>$0-$500</option>
-            <option value={2}>$500-$2000</option>
-            <option value={3}>$2000-$4000</option>
-            <option value={4}>$4000-$7000</option>
-            <option value={5}>$7000+</option>
+            <option value={1}>0 TK - 10,000 TK</option>
+            <option value={2}>10,000 TK - 30,000 TK</option>
+            <option value={3}>30,000 TK - 70,000 TK</option>
+            <option value={4}>70,000 TK - 1,00,0000 TK</option>
+            <option value={5}>1,00,0000 TK+</option>
           </select>
         </div>
 

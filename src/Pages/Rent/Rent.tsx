@@ -22,23 +22,23 @@ const Rent: FC = () => {
   useEffect(() => {
     switch (price) {
       case 1:
-        setPriceRange([0, 500]);
+        setPriceRange([0, 10000]);
         break;
 
       case 2:
-        setPriceRange([501, 2000]);
+        setPriceRange([10001, 30000]);
         break;
 
       case 3:
-        setPriceRange([2001, 4000]);
+        setPriceRange([30001, 70000]);
         break;
 
       case 4:
-        setPriceRange([4001, 7000]);
+        setPriceRange([70001, 100000]);
         break;
 
       case 5:
-        setPriceRange([7001, Infinity]);
+        setPriceRange([100001, Infinity]);
         break;
 
       default:
