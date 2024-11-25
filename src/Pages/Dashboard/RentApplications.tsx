@@ -15,8 +15,10 @@ interface Props {
 const RentApplications: FC<Props> = ({ id }) => {
   const [currentStatus, setCurrentStatus] = useState<string>("");
   const [currentId, setCurrentId] = useState<string>("");
+  const [userDetails, setUserDetails] = useState<Record<string, any>>({});
   const { user } = useAppSelector((state) => state.userReducer);
   const dispatch = useAppDispatch();
+
   const {
     data: applications,
     isLoading,
@@ -34,6 +36,34 @@ const RentApplications: FC<Props> = ({ id }) => {
       }
     })
   );
+
+  useEffect(() => {
+    if (applications) {
+      // Fetch user details for each application
+      applications.forEach((application: Booking) => {
+        const email = application.applicant_email;
+        if (!userDetails[email]) {
+          fetch(`https://rent-a-property-server.vercel.app/user/${email}`, {
+            headers: {
+              authorization: `Bearer ${user?.token}`,
+            },
+          })
+            .then((res) => {
+              if (res.status === 401 || res.status === 403) {
+                dispatch(removeUser());
+              } else {
+                return res.json();
+              }
+            })
+            .then((userData) => {
+              if (userData) {
+                setUserDetails((prev) => ({ ...prev, [email]: userData }));
+              }
+            });
+        }
+      });
+    }
+  }, [applications, user, dispatch]);
 
   useEffect(() => {
     if (currentId && currentStatus && user) {
@@ -83,8 +113,8 @@ const RentApplications: FC<Props> = ({ id }) => {
       <div className="mt-8">
         {applications &&
           applications.map((application: Booking) => {
-            const { _id, renterName, renterPhone, renterEmail, status } =
-              application;
+            const { _id, applicant_email, status } = application;
+            const userInfo = userDetails[applicant_email];
 
             return (
               <div
@@ -94,18 +124,18 @@ const RentApplications: FC<Props> = ({ id }) => {
                 <p>
                   <span className="flex gap-2 items-center font-semibold">
                     <MdOutlinePersonOutline className="text-xl" />:{" "}
-                    {renterName || ""}
+                    {userInfo?.name || "Fetching..."}
                   </span>
                 </p>
                 <p>
                   <span className="flex gap-2 items-center font-semibold">
-                    <AiOutlinePhone className="text-xl" />: {renterPhone || ""}
+                    <AiOutlinePhone className="text-xl" />:{" "}
+                    {userInfo?.phone || "Fetching..."}
                   </span>
                 </p>
                 <p>
                   <span className="flex gap-2 items-center font-semibold">
-                    <MdAlternateEmail className="text-xl" />:{" "}
-                    {renterEmail || ""}
+                    <MdAlternateEmail className="text-xl" />: {applicant_email}
                   </span>
                 </p>
                 <div>

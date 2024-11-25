@@ -27,9 +27,9 @@ const MyRents: FC = () => {
     return <Loading />;
   }
   return (
-    <div className="flex flex-col gap-8 px-3">
+    <div className="flex flex-col space-y-3">
       {myRents.length === 0 ? (
-        <h1 className="text-3xl font-semibold text-center">
+        <h1 className="text-lg md:text-2xl font-semibold text-center text-primary">
           You have No Rent Application
         </h1>
       ) : (

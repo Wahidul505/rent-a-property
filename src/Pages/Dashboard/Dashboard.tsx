@@ -10,7 +10,7 @@ const Dashboard: FC = () => {
   const { user } = useAppSelector((state) => state.userReducer);
   const email = user?.email;
   useEffect(() => {
-    fetch(`https://rent-a-property-server.vercel.app/user/${email}`, {
+    fetch(`https://rent-a-property-server.vercel.app/admin/${email}`, {
       headers: {
         authorization: `Bearer ${user?.token}`,
       },

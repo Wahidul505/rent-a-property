@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../app/hooks";
 import { storeUser } from "../../features/userSlice";
 import { User } from "../../modals/Auth";
+import Input from "../../Components/Input";
 
 const Login = () => {
   const [email, setEmail] = useState<string>("");
@@ -50,43 +51,37 @@ const Login = () => {
   };
 
   return (
-    <div className="w-11/12 md:w-1/2 lg:w-2/5 mx-auto flex-shrink-0 shadow-2xl bg-base-100 p-2 md:p-4">
+    <div className="w-11/12 md:w-1/2 lg:w-2/5 mx-auto p-2 md:p-4 border border-solid border-primary rounded">
       <form onSubmit={(e) => handleLogin(e)}>
         <h1 className="text-center text-2xl text-primary mb-6">Login</h1>
-        <div className="form-control">
-          <label className="label">
-            <span className="label-text text-xl">Email</span>
-          </label>
-          <input
-            onChange={(e) => setEmail(e.target.value)}
-            type="email"
-            placeholder="email"
-            className="input input-bordered text-lg"
-            required
-          />
-        </div>
-        <div className="form-control">
-          <label className="label">
-            <span className="label-text text-xl">Password</span>
-          </label>
-          <input
-            onChange={(e) => setPassword(e.target.value)}
-            type="password"
-            placeholder="password"
-            className="input input-bordered text-lg"
-            required
-          />
-          <label className="label">
-            <p>
-              New to this website?{" "}
-              <Link to="/sign-up" className="underline text-secondary">
-                SignUp
-              </Link>
-            </p>
-          </label>
-        </div>
+
+        <Input
+          type="email"
+          label="Email"
+          placeholder="Email Address"
+          onChange={(e: any) => setEmail(e.target.value)}
+          required
+        />
+
+        <Input
+          type="password"
+          label="Password"
+          placeholder="Password"
+          onChange={(e: any) => setPassword(e.target.value)}
+          required
+        />
+
+        <label className="label">
+          <p>
+            New to this website?{" "}
+            <Link to="/sign-up" className="underline text-secondary">
+              SignUp
+            </Link>
+          </p>
+        </label>
+
         <div className="form-control mt-6">
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="btn btn-primary rounded">
             Login
           </button>
         </div>

@@ -35,7 +35,9 @@ const MySales: FC = () => {
         </h1>
       ) : (
         mySales &&
-        mySales.map((sale: Property) => <SaleCard key={sale._id} sale={sale} />)
+        mySales.map((listing: Property) => (
+          <SaleCard key={listing._id} listing={listing} />
+        ))
       )}
     </div>
   );

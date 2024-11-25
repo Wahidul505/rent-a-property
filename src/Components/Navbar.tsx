@@ -2,6 +2,8 @@ import React, { FC } from "react";
 import { useAppSelector, useAppDispatch } from "../app/hooks";
 import { Link, NavLink } from "react-router-dom";
 import { removeUser } from "../features/userSlice";
+import ButtonOutline from "./ButtonOutline";
+import Button from "./Button";
 
 const Navbar: FC = () => {
   const { user } = useAppSelector((state) => state.userReducer);
@@ -27,45 +29,28 @@ const Navbar: FC = () => {
       )}
     </div>
   );
+
   const authItems: JSX.Element = (
     <div className="flex flex-col md:flex-row gap-2 md:gap-4 md:mt-3">
       {user?.email ? (
-        <div className="dropdown dropdown-end dropdown-hover">
-          <label tabIndex={0} className="btn m-1">
-            {user?.name && user?.name[0]}
-          </label>
-          <ul
-            tabIndex={0}
-            className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 mt-3 md:mt-0"
-          >
-            <li>
-              <button
-                onClick={handleSignOut}
-                className="btn btn-md btn-primary btn-outline"
-              >
-                SignOut
-              </button>
-            </li>
-          </ul>
-        </div>
+        <button onClick={handleSignOut} className="btn btn-primary rounded">
+          Singout
+        </button>
       ) : (
         <>
-          <Link
-            to="/login"
-            className="btn btn-sm md:btn-md btn-outline btn-primary"
-          >
-            Login
+          <Link to="/login">
+            <ButtonOutline label="Login" />
           </Link>
-          <Link to="/sign-up" className="btn btn-sm md:btn-md btn-primary">
-            SignUp
+          <Link to="/sign-up">
+            <button className="btn btn-primary rounded">Signup</button>
           </Link>
         </>
       )}
     </div>
   );
   return (
-    <div className="navbar bg-white fixed top-0 z-40 md:px-6">
-      <div className="">
+    <div className="navbar bg-white shadow fixed top-0 z-40 md:px-6">
+      <div>
         <div className="dropdown">
           <label
             tabIndex={0}

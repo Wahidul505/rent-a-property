@@ -5,10 +5,9 @@ import SearchInput from "./SearchInput";
 import Loading from "../../Components/Loading";
 
 const Rent: FC = () => {
-  const [location, setLocation] = useState<string>("WorldWide");
-  const [price, setPrice] = useState<number>(0);
-  const [priceRange, setPriceRange] = useState<number[]>([]);
-  const [category, setCategory] = useState<string>("any");
+  const [city, setCity] = useState<string>("any");
+  const [property_use, setPropertyUse] = useState<string>("any");
+  const [property_type, setPropertyType] = useState<string>("any");
   const [properties, setProperties] = useState<Property[]>();
   const [searchedProperties, setSearchedProperties] = useState<Property[]>();
   const [notFound, setNotFound] = useState<boolean>(false);
@@ -18,34 +17,6 @@ const Rent: FC = () => {
       .then((res) => res.json())
       .then((data) => setProperties(data));
   }, []);
-
-  useEffect(() => {
-    switch (price) {
-      case 1:
-        setPriceRange([0, 10000]);
-        break;
-
-      case 2:
-        setPriceRange([10001, 30000]);
-        break;
-
-      case 3:
-        setPriceRange([30001, 70000]);
-        break;
-
-      case 4:
-        setPriceRange([70001, 100000]);
-        break;
-
-      case 5:
-        setPriceRange([100001, Infinity]);
-        break;
-
-      default:
-        setPriceRange([0, Infinity]);
-        break;
-    }
-  }, [price]);
 
   useEffect(() => {
     setSearchedProperties(properties);
@@ -58,101 +29,25 @@ const Rent: FC = () => {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (
-      (location?.trim().toLowerCase() === "worldwide" ||
-        location?.trim().toLowerCase() === "world wide" ||
-        location?.trim().toLowerCase() === "any" ||
-        location?.trim().toLowerCase() === "") &&
-      price === 0 &&
-      category === "any"
+      (city === "any" || city.trim().toLowerCase() === "") &&
+      property_use === "any" &&
+      property_type === "any"
     ) {
       setSearchedProperties(properties);
     } else {
-      if (
-        (location?.trim().toLowerCase() === "worldwide" ||
-          location?.trim().toLowerCase() === "world wide" ||
-          location?.trim().toLowerCase() === "any" ||
-          location?.trim().toLowerCase() === "") &&
-        price === 0 &&
-        category !== "any"
-      ) {
-        setSearchedProperties(
-          properties?.filter((property) => property.category === category)
-        );
-      } else if (
-        (location?.trim().toLowerCase() === "worldwide" ||
-          location?.trim().toLowerCase() === "world wide" ||
-          location?.trim().toLowerCase() === "any" ||
-          location?.trim().toLowerCase() === "") &&
-        price !== 0 &&
-        category === "any"
-      ) {
-        setSearchedProperties(
-          properties?.filter(
-            (property) =>
-              property.price > priceRange[0] && property.price < priceRange[1]
-          )
-        );
-      } else if (
-        (location?.trim().toLowerCase() === "worldwide" ||
-          location?.trim().toLowerCase() === "world wide" ||
-          location?.trim().toLowerCase() === "any" ||
-          location?.trim().toLowerCase() === "") &&
-        price !== 0 &&
-        category !== "any"
-      ) {
-        setSearchedProperties(
-          properties?.filter(
-            (property) =>
-              property.price > priceRange[0] &&
-              property.price < priceRange[1] &&
-              property.category === category
-          )
-        );
-      } else if (price === 0 && category === "any") {
-        setSearchedProperties(
-          properties?.filter((property) =>
-            property?.location
-              ?.trim()
-              .toLowerCase()
-              ?.includes(location?.trim().toLowerCase())
-          )
-        );
-      } else if (price !== 0 && category === "any") {
-        setSearchedProperties(
-          properties?.filter(
-            (property) =>
-              property?.location
-                ?.toLowerCase()
-                ?.includes(location?.trim().toLowerCase()) &&
-              property.price > priceRange[0] &&
-              property.price < priceRange[1]
-          )
-        );
-      } else if (price === 0 && category !== "any") {
-        setSearchedProperties(
-          properties?.filter(
-            (property) =>
-              property?.location
-                ?.toLowerCase()
-                ?.includes(location?.trim().toLowerCase()) &&
-              property.category === category
-          )
-        );
-      } else if (price !== 0 && category !== "any") {
-        setSearchedProperties(
-          properties?.filter(
-            (property) =>
-              property?.location
-                ?.toLowerCase()
-                ?.includes(location?.trim().toLowerCase()) &&
-              property.price > priceRange[0] &&
-              property.price < priceRange[1] &&
-              property.category === category
-          )
-        );
-      } else {
-        setNotFound(true);
-      }
+      setSearchedProperties(
+        properties?.filter((property) => {
+          const matchesCity =
+            city === "any" ||
+            property.city?.trim().toLowerCase() === city.trim().toLowerCase();
+          const matchesPropertyUse =
+            property_use === "any" || property.property_use === property_use;
+          const matchesPropertyType =
+            property_type === "any" || property.property_type === property_type;
+
+          return matchesCity && matchesPropertyUse && matchesPropertyType;
+        })
+      );
     }
   };
 
@@ -163,12 +58,12 @@ const Rent: FC = () => {
       <h1 className="text-3xl font-bold mb-6">Search Your Suitable Property</h1>
       <div>
         <SearchInput
-          location={location}
-          setLocation={setLocation}
-          price={price}
-          setPrice={setPrice}
-          category={category}
-          setCategory={setCategory}
+          city={city}
+          setCity={setCity}
+          property_use={property_use}
+          setPropertyUse={setPropertyUse}
+          property_type={property_type}
+          setPropertyType={setPropertyType}
           handleSearch={handleSearch}
         />
       </div>

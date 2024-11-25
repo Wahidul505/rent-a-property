@@ -6,7 +6,7 @@ import { TbSquaresFilled } from "react-icons/tb";
 import { Property } from "../../modals/Property";
 import { AiOutlineLeft } from "react-icons/ai";
 import { AiOutlinePhone } from "react-icons/ai";
-import { MdAlternateEmail } from "react-icons/md";
+import { MdAlternateEmail, MdLocationCity } from "react-icons/md";
 import { MdOutlinePersonOutline } from "react-icons/md";
 import BookingModal from "./BookingModal";
 import { useQuery } from "react-query";
@@ -19,6 +19,7 @@ const PropertyDetails = () => {
   const navigate = useNavigate();
   const [property, setProperty] = useState<Property>();
   const [bookingProperty, setBookingProperty] = useState<Property | null>();
+  // const [propertyOwner, setPropertyOwner] = useState(null);
 
   useEffect(() => {
     fetch(`https://rent-a-property-server.vercel.app/property/${id}`)
@@ -36,9 +37,32 @@ const PropertyDetails = () => {
     ).then((res) => res.json())
   );
 
-  if (isLoading) {
+  const { data: propertyOwner, isLoading: isOwnerLoading } = useQuery(
+    ["property_owner", property],
+    () => {
+      if (property?.owner_email) {
+        return fetch(
+          `https://rent-a-property-server.vercel.app/user/${property?.owner_email}`
+        ).then((res) => res.json());
+      }
+    }
+  );
+
+  // useEffect(() => {
+  //   if (property?.owner_email) {
+  //     fetch(
+  //       `https://rent-a-property-server.vercel.app/user/${property?.owner_email}`
+  //     )
+  //       .then((res) => res.json())
+  //       .then((data) => setPropertyOwner(data));
+  //   }
+  // }, [property?.owner_email]);
+
+  if (isLoading || isOwnerLoading) {
     return <Loading />;
   }
+
+  console.log(propertyOwner);
 
   return (
     <div>
@@ -51,44 +75,40 @@ const PropertyDetails = () => {
           Back to map
         </span>
         <div className="mt-8">
-          <h1 className="text-3xl font-bold mb-2">
-            {property?.propertyName ? property.propertyName : ""}
-          </h1>
-          <h1 className="text-xl font-bold text-gray-600">
-            Category:{" "}
+          <h1 className="text-3xl font-bold mb-2">{property?.property_name}</h1>
+          <div className="text-xl">
             <span className="text-primary">
-              {property?.category
-                ? property.category.split("_").join(" ").toUpperCase()
-                : ""}
+              {property?.property_type?.toUpperCase()}
+            </span>{" "}
+            property in{" "}
+            <span className="text-primary">
+              {property?.city?.toUpperCase()}
             </span>
-          </h1>
-          <p className="text-gray-500 mt-3 text-lg">
-            {property?.location ? property.location : ""}
-          </p>
+          </div>
         </div>
         <div className="mt-8">
           <img
             className="rounded-lg w-full h-96"
-            src={property?.propertyImage ? property.propertyImage : ""}
+            src={property?.image ? property.image : ""}
             alt=""
           />
           <div className="stats stats-vertical md:stats-horizontal shadow w-full mt-8 border border-accent">
             <div className="stat">
-              <div className="stat-title">Bedrooms</div>
+              <div className="stat-title">Beds</div>
               <div>
                 <span className="flex gap-2 items-center text-gray-600 font-semibold">
-                  <BiBed className="text-xl" />{" "}
-                  {property?.bedrooms ? property.bedrooms : ""} Beds
+                  <BiBed className="text-xl text-primary" />{" "}
+                  {property?.beds ? property.beds : ""} Beds
                 </span>
               </div>
             </div>
 
             <div className="stat">
-              <div className="stat-title">Bathrooms</div>
+              <div className="stat-title">Baths</div>
               <div>
                 <span className="flex gap-2 items-center text-gray-600 font-semibold">
-                  <TbBath className="text-xl" />{" "}
-                  {property?.bathrooms ? property.bathrooms : ""} Baths
+                  <TbBath className="text-xl text-primary" />{" "}
+                  {property?.baths ? property.baths : ""} Baths
                 </span>
               </div>
             </div>
@@ -97,27 +117,14 @@ const PropertyDetails = () => {
               <div className="stat-title">Square Area</div>
               <div>
                 <span className="flex gap-2 items-center text-gray-600 font-semibold">
-                  <TbSquaresFilled className="text-xl" />{" "}
-                  {property?.propertySize ? property.propertySize : ""} &#13217;
+                  <TbSquaresFilled className="text-xl text-primary" />{" "}
+                  {property?.size ? property.size : ""} &#13217;
                 </span>
               </div>
             </div>
           </div>
-          <div className="grid md:grid-cols-5 grid-cols-1 gap-6 mt-8">
-            <div className="md:col-span-3">
-              <h2 className="text-2xl font-semibold mb-2">
-                About this{" "}
-                <span className="text-primary">
-                  {property?.category
-                    ? property.category.split("_").join(" ").toUpperCase()
-                    : ""}
-                </span>
-              </h2>
-              <p className="md:text-lg">
-                {property?.aboutProperty ? property.aboutProperty : ""}
-              </p>
-            </div>
-            <div className="md:col-span-2 border border-accent rounded-lg p-2 lg:p-4">
+          <div className="grid md:grid-cols-2 grid-cols-1 gap-6 mt-8">
+            <div className=" border border-accent rounded-lg p-2 lg:p-4">
               <div className="shadow-lg bg-white p-2 rounded-lg mb-8">
                 <h3 className="text-accent text-lg font-semibold">
                   Property Owner
@@ -125,42 +132,89 @@ const PropertyDetails = () => {
                 <hr className="mb-3" />
                 <p>
                   <span className="flex gap-2 items-center text-gray-600 font-semibold">
-                    <MdOutlinePersonOutline className="text-xl" />:{" "}
-                    {property?.sellerName ? property.sellerName : ""}
+                    <MdOutlinePersonOutline className="text-xl text-primary" />:{" "}
+                    {propertyOwner?.name ? propertyOwner?.name : ""}
                   </span>
                 </p>
                 <p>
                   <span className="flex gap-2 items-center text-gray-600 font-semibold">
-                    <AiOutlinePhone className="text-xl" />:{" "}
-                    {property?.sellerPhone ? property.sellerPhone : ""}
+                    <AiOutlinePhone className="text-xl text-primary" />:{" "}
+                    {propertyOwner?.contact ? propertyOwner?.contact : ""}
                   </span>
                 </p>
                 <p>
                   <span className="flex gap-2 items-center text-gray-600 font-semibold">
-                    <MdAlternateEmail className="text-xl" />:{" "}
-                    {property?.sellerEmail ? property.sellerEmail : ""}
+                    <MdLocationCity className="text-xl text-primary" />:{" "}
+                    {propertyOwner?.city ? propertyOwner?.city : ""}
+                  </span>
+                </p>
+                <p>
+                  <span className="flex gap-2 items-center text-gray-600 font-semibold">
+                    <MdAlternateEmail className="text-xl text-primary" />:{" "}
+                    {propertyOwner?.email ? propertyOwner?.email : ""}
                   </span>
                 </p>
               </div>
-              <p className="text-gray-500">Rent Price</p>
+            </div>
+            <div className=" border border-accent rounded-lg p-2 lg:p-4">
               <p>
-                <span className="text-primary font-semibold text-2xl">
-                  {property?.price ? property.price : ""} TK
+                <span className="flex gap-2 items-center text-gray-600 font-semibold">
+                  <span className="text-primary">Property Type:</span>{" "}
+                  {property?.property_type
+                    ? property?.property_type?.toUpperCase()
+                    : ""}
                 </span>
-                <span className="text-gray-500">/month</span>
               </p>
-              {bookingStatus.success ? (
-                <p className="text-lg text-white mt-2 uppercase bg-secondary rounded-3xl py-1 px-2 font-semibold w-fit">
-                  {bookingStatus.status}
+              <p>
+                <span className="flex gap-2 items-center text-gray-600 font-semibold">
+                  <span className="text-primary">City:</span>{" "}
+                  {property?.city ? property?.city?.toUpperCase() : ""}
+                </span>
+              </p>
+              {property?.property_use === "sale" && (
+                <p>
+                  <span className="flex gap-2 items-center text-gray-600 font-semibold">
+                    <span className="text-primary">Asking Price:</span>{" "}
+                    {property?.asking_price ? property?.asking_price : ""} TK
+                  </span>
                 </p>
+              )}
+              {property?.property_use === "rental" && (
+                <>
+                  <p>
+                    <span className="flex gap-2 items-center text-gray-600 font-semibold">
+                      <span className="text-primary">Monthly Rent:</span>{" "}
+                      {property?.monthly_rent ? property?.monthly_rent : ""} TK
+                    </span>
+                  </p>
+                  <p>
+                    <span className="flex gap-2 items-center text-gray-600 font-semibold">
+                      <span className="text-primary">Lease Term:</span>{" "}
+                      {property?.lease_term ? property?.lease_term : ""} months
+                    </span>
+                  </p>
+                </>
+              )}
+              {user?.email !== propertyOwner?.email ? (
+                <>
+                  {bookingStatus.success ? (
+                    <p className="text-lg text-white mt-2 uppercase bg-secondary rounded-3xl py-1 px-2 font-semibold w-fit">
+                      {bookingStatus.status}
+                    </p>
+                  ) : (
+                    <label
+                      onClick={() => setBookingProperty(property)}
+                      htmlFor="booking-modal"
+                      className="btn btn-primary rounded mt-4"
+                    >
+                      {property?.property_use === "sale"
+                        ? "Apply to Buy "
+                        : "Apply for Rent"}
+                    </label>
+                  )}
+                </>
               ) : (
-                <label
-                  onClick={() => setBookingProperty(property)}
-                  htmlFor="booking-modal"
-                  className="btn btn-primary text-white mt-4"
-                >
-                  Apply for Rent
-                </label>
+                <p className="mt-8">You are the owner of this property</p>
               )}
             </div>
           </div>

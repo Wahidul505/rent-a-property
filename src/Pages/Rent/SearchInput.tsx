@@ -1,92 +1,94 @@
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 
 interface Props {
-  location: string;
-  setLocation: React.Dispatch<React.SetStateAction<string>>;
-  price: number;
-  setPrice: React.Dispatch<React.SetStateAction<number>>;
-  category: string;
-  setCategory: React.Dispatch<React.SetStateAction<string>>;
+  city: string;
+  setCity: React.Dispatch<React.SetStateAction<string>>;
+  property_use: string;
+  setPropertyUse: React.Dispatch<React.SetStateAction<string>>;
+  property_type: string;
+  setPropertyType: React.Dispatch<React.SetStateAction<string>>;
   handleSearch: (e: React.FormEvent) => void;
 }
 
 const SearchInput: FC<Props> = ({
-  location,
-  setLocation,
-  price,
-  setPrice,
-  category,
-  setCategory,
+  city,
+  setCity,
+  property_use,
+  setPropertyUse,
+  property_type,
+  setPropertyType,
   handleSearch,
 }) => {
-  const [showInput, setShowInput] = useState<boolean>(false);
   return (
     <form onSubmit={handleSearch}>
       <div className="stats stats-vertical md:stats-horizontal shadow w-full bg-white">
+        {/* City Filter */}
         <div className="stat">
-          {showInput ? (
-            <div>
-              <p className="text-gray-500 font-semibold">Location</p>
-              <input
-                autoFocus
-                onChange={(e) => setLocation(e.target.value)}
-                onBlur={() => setShowInput(false)}
-                value={location}
-                type="text"
-                className="input border border-secondary text-base"
-              />
-            </div>
-          ) : (
-            <div
-              className="flex flex-col font-semibold cursor-pointer"
-              onClick={() => setShowInput(true)}
-            >
-              <p className="text-gray-500 font-semibold">Location</p>
-              <h1 className="mt-2">{location}</h1>
-            </div>
-          )}
-        </div>
-
-        <div className="stat">
-          <label htmlFor="price" className="text-gray-500 font-semibold pl-4">
-            Price
+          <label htmlFor="city" className="text-gray-500 font-semibold pl-4">
+            City
           </label>
           <select
-            onChange={(e) => setPrice(parseInt(e.target.value))}
-            id="price"
+            onChange={(e) => setCity(e.target.value)}
+            id="city"
+            value={city}
             className="select select-secondary w-full max-w-xs border-none text-base bg-white"
           >
-            <option value={0}>Any</option>
-            <option value={1}>0 TK - 10,000 TK</option>
-            <option value={2}>10,000 TK - 30,000 TK</option>
-            <option value={3}>30,000 TK - 70,000 TK</option>
-            <option value={4}>70,000 TK - 1,00,0000 TK</option>
-            <option value={5}>1,00,0000 TK+</option>
+            <option value="any">Any</option>
+            <option value="chattogram">Chattogram</option>
+            <option value="dhaka">Dhaka</option>
+            <option value="khulna">Khulna</option>
+            <option value="mymensingh">Mymensingh</option>
+            <option value="rajshahi">Rajshahi</option>
+            <option value="barisal">Barisal</option>
+            <option value="rangpur">Rangpur</option>
+            <option value="sylhet">Sylhet</option>
           </select>
         </div>
 
+        {/* Property Use Filter */}
         <div className="stat">
           <label
-            htmlFor="category"
+            htmlFor="property_use"
             className="text-gray-500 font-semibold pl-4"
           >
-            Property type
+            Property Use
           </label>
           <select
-            onChange={(e) => setCategory(e.target.value)}
-            id="category"
+            onChange={(e) => setPropertyUse(e.target.value)}
+            id="property_use"
+            value={property_use}
             className="select select-secondary w-full max-w-xs border-none text-base bg-white"
           >
-            <option value={"any"}>Any</option>
-            <option value={"house"}>Houses</option>
-            <option value={"apartment"}>Apartments</option>
-            <option value={"villa"}>Villas</option>
-            <option value={"single_room"}>Single Room</option>
+            <option value="any">Any</option>
+            <option value="rental">Rental</option>
+            <option value="sale">Sale</option>
           </select>
         </div>
 
+        {/* Property Type Filter */}
+        <div className="stat">
+          <label
+            htmlFor="property_type"
+            className="text-gray-500 font-semibold pl-4"
+          >
+            Property Type
+          </label>
+          <select
+            onChange={(e) => setPropertyType(e.target.value)}
+            id="property_type"
+            value={property_type}
+            className="select select-secondary w-full max-w-xs border-none text-base bg-white"
+          >
+            <option value="any">Any</option>
+            <option value="residential">Residential</option>
+            <option value="commercial">Commercial</option>
+            <option value="industrial">Industrial</option>
+          </select>
+        </div>
+
+        {/* Search Button */}
         <div className="flex justify-center items-center py-4 md:py-0">
-          <button type="submit" className="btn btn-primary text-white w-2/3">
+          <button type="submit" className="btn btn-primary rounded">
             Search
           </button>
         </div>

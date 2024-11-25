@@ -6,6 +6,7 @@ import { TbBath, TbSquaresFilled } from "react-icons/tb";
 import { useNavigate, useParams } from "react-router-dom";
 import { Property } from "../../modals/Property";
 import RentApplications from "./RentApplications";
+import { useQuery } from "react-query";
 
 const SaleDetails = () => {
   const { id } = useParams();
@@ -18,6 +19,20 @@ const SaleDetails = () => {
         setProperty(data);
       });
   }, [id]);
+
+  const { data: propertyOwner, isLoading: isOwnerLoading } = useQuery(
+    ["property_owner", property],
+    () => {
+      if (property?.owner_email) {
+        return fetch(
+          `https://rent-a-property-server.vercel.app/user/${property?.owner_email}`
+        ).then((res) => res.json());
+      }
+    }
+  );
+
+  if (isOwnerLoading) return <></>;
+
   return (
     <div>
       <div>
@@ -30,36 +45,36 @@ const SaleDetails = () => {
         </span>
         <div className="mt-8">
           <h1 className="text-3xl font-bold">
-            {property?.propertyName ? property.propertyName : ""}
-            <span>{property?.category ? property.category : ""}</span>
+            {property?.property_name ? property.property_name : ""}
+            <span>{property?.property_type ? property.property_type : ""}</span>
           </h1>
           <p className="text-gray-500 mt-3 text-lg">
-            {property?.location ? property.location : ""}
+            {property?.city?.toUpperCase() ? property.city?.toUpperCase() : ""}
           </p>
         </div>
         <div className="mt-8">
           <img
             className="rounded-lg w-full h-96"
-            src={property?.propertyImage ? property.propertyImage : ""}
+            src={property?.image ? property.image : ""}
             alt=""
           />
           <div className="stats stats-vertical md:stats-horizontal shadow w-full mt-8 border border-accent">
             <div className="stat">
-              <div className="stat-title">Bedrooms</div>
+              <div className="stat-title">Beds</div>
               <div>
                 <span className="flex gap-2 items-center text-gray-600 font-semibold">
                   <BiBed className="text-xl" />{" "}
-                  {property?.bedrooms ? property.bedrooms : ""} Beds
+                  {property?.beds ? property.beds : ""} Beds
                 </span>
               </div>
             </div>
 
             <div className="stat">
-              <div className="stat-title">Bathrooms</div>
+              <div className="stat-title">Baths</div>
               <div>
                 <span className="flex gap-2 items-center text-gray-600 font-semibold">
                   <TbBath className="text-xl" />{" "}
-                  {property?.bathrooms ? property.bathrooms : ""} Baths
+                  {property?.baths ? property.baths : ""} Baths
                 </span>
               </div>
             </div>
@@ -69,7 +84,7 @@ const SaleDetails = () => {
               <div>
                 <span className="flex gap-2 items-center text-gray-600 font-semibold">
                   <TbSquaresFilled className="text-xl" />{" "}
-                  {property?.propertySize ? property.propertySize : ""} &#13217;
+                  {property?.size ? property.size : ""} &#13217;
                 </span>
               </div>
             </div>
@@ -77,42 +92,28 @@ const SaleDetails = () => {
           <div className="grid grid-cols-1 gap-6 mt-8">
             <div>
               <h2 className="text-xl font-semibold mb-6">
-                About this {property?.category ? property.category : ""}
+                About this{" "}
+                {property?.property_type ? property.property_type : ""}
               </h2>
-              <p>{property?.aboutProperty ? property.aboutProperty : ""}</p>
             </div>
             <div className="border border-accent rounded-lg p-2">
-              <div className="shadow-lg bg-white p-2 rounded-lg mb-8">
-                <h3 className="text-accent text-lg font-semibold">
-                  Property Owner
-                </h3>
-                <hr className="mb-3" />
-                <p>
-                  <span className="flex gap-2 items-center text-gray-600 font-semibold">
-                    <MdOutlinePersonOutline className="text-xl" />:{" "}
-                    {property?.sellerName ? property.sellerName : ""}
-                  </span>
-                </p>
-                <p>
-                  <span className="flex gap-2 items-center text-gray-600 font-semibold">
-                    <AiOutlinePhone className="text-xl" />:{" "}
-                    {property?.sellerPhone ? property.sellerPhone : ""}
-                  </span>
-                </p>
-                <p>
-                  <span className="flex gap-2 items-center text-gray-600 font-semibold">
-                    <MdAlternateEmail className="text-xl" />:{" "}
-                    {property?.sellerEmail ? property.sellerEmail : ""}
-                  </span>
-                </p>
-              </div>
               <p className="text-gray-500">Rent Price</p>
-              <p>
-                <span className="text-primary font-semibold text-2xl">
-                  {property?.price ? property.price : ""} TK
-                </span>
-                <span className="text-gray-500">/month</span>
-              </p>
+              {property?.property_use === "rental" && (
+                <p>
+                  <span className="text-primary font-semibold text-2xl">
+                    {property?.monthly_rent ? property?.monthly_rent : ""} TK
+                  </span>
+                  <span className="text-gray-500">/month</span> for{" "}
+                  {property?.lease_term} months
+                </p>
+              )}
+              {property?.property_use === "sale" && (
+                <p>
+                  <span className="text-primary font-semibold text-2xl">
+                    {property?.asking_price ? property?.asking_price : ""} TK
+                  </span>
+                </p>
+              )}
             </div>
           </div>
         </div>

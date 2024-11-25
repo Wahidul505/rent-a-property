@@ -59,12 +59,12 @@ const ManageProperty = () => {
         <tbody>
           {properties &&
             properties.map((property: Property, index: number) => {
-              const { _id, propertyName, sellerEmail } = property;
+              const { _id, property_name, owner_email } = property;
               return (
                 <tr key={_id}>
                   <th>{index + 1}</th>
-                  <td>{propertyName}</td>
-                  <td>{sellerEmail}</td>
+                  <td>{property_name}</td>
+                  <td>{owner_email}</td>
                   <td>
                     <button
                       onClick={() => handleDeleteProperty(_id)}
